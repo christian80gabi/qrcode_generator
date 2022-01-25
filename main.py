@@ -21,46 +21,16 @@ def print_box_label(box_number='', quantity='', description='', order=''):
     # Print data on a PDF file
 
     # ---------------------------------------------------------------------------------------------
-    # c = canvas.Canvas(pdf_file)
-    # c.drawString(10, 200, "Box Number: " + str(box_number))
-    # c.drawString(10, 210, "Quantity: " + str(quantity))
-    # c.drawString(10, 220, "Description: " + str(description))
-    # c.drawString(10, 240, "Order: " + str(order))
-    # c.save()
-    # os.startfile(pdf_file)
-
-    # # Add image
-    # in_pdf_file = pdf_file
-    # out_pdf_file = 'image_' + pdf_file
-    # img_file = qrcode_img
+    c = canvas.Canvas(pdf_file)
+    c.drawString(20, 750, "Box Number: " + str(box_number))
+    c.drawString(20, 700, "Quantity: " + str(quantity))
+    c.drawString(20, 650, "Description: " + str(description))
+    c.drawString(20, 600, "Order: " + str(order))
  
-    # packet = io.BytesIO()
-    # can = canvas.Canvas(packet)
-    # x_start = 0
-    # y_start = 0
-    # can.drawImage(img_file, x_start, y_start, width=120, preserveAspectRatio=True, mask='auto')
-    # can.showPage()
-    # can.showPage()
-    # can.showPage()
-    # can.save()
- 
-    # #move to the beginning of the StringIO buffer
-    # packet.seek(0)
- 
-    # new_pdf = PdfFileReader(packet)
- 
-    # # read the existing PDF
-    # existing_pdf = PdfFileReader(open(in_pdf_file, "rb"))
-    # output = PdfFileWriter()
- 
-    # for i in range(len(existing_pdf.pages)):
-    #     page = existing_pdf.getPage(i)
-    #     page.mergePage(new_pdf.getPage(i))
-    #     output.addPage(page)
- 
-    # outputStream = open(out_pdf_file, "wb")
-    # output.write(outputStream)
-    # outputStream.close()
+    c.drawImage(qrcode_img, 10, 150, width=300, preserveAspectRatio=True, mask='auto')
+    c.showPage()
+    c.save()
+    os.startfile(pdf_file)
     # ---------------------------------------------------------------------------------------------
 
     #import a module
