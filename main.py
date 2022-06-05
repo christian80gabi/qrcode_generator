@@ -10,10 +10,18 @@ def print_box_label(box_number='', quantity='', description='', order=''):
     pdf_file = 'report.pdf'
 
     # Data to be encoded
-    data = 'Box Number: ' + str(box_number) + '\n'\
-           'Quantity: ' + str(quantity) +  '\n'\
-           'Description: ' + str(description) + '\n'\
-           'Order: ' + str(order)
+    data = (
+        (
+            (f'Box Number: {str(box_number)}' + '\n' 'Quantity: ')
+            + str(quantity)
+            + '\n'
+            'Description: '
+        )
+        + str(description)
+        + '\n'
+        'Order: '
+    ) + str(order)
+
 
     img = qrcode.make(data)  # Encoding data using make() function
     img.save(qrcode_img)  # Saving as an image file
@@ -22,11 +30,11 @@ def print_box_label(box_number='', quantity='', description='', order=''):
 
     # ---------------------------------------------------------------------------------------------
     c = canvas.Canvas(pdf_file)
-    c.drawString(20, 750, "Box Number: " + str(box_number))
-    c.drawString(20, 700, "Quantity: " + str(quantity))
-    c.drawString(20, 650, "Description: " + str(description))
-    c.drawString(20, 600, "Order: " + str(order))
- 
+    c.drawString(20, 750, f"Box Number: {str(box_number)}")
+    c.drawString(20, 700, f"Quantity: {str(quantity)}")
+    c.drawString(20, 650, f"Description: {str(description)}")
+    c.drawString(20, 600, f"Order: {str(order)}")
+
     c.drawImage(qrcode_img, 10, 150, width=300, preserveAspectRatio=True, mask='auto')
     c.showPage()
     c.save()
@@ -37,25 +45,25 @@ def print_box_label(box_number='', quantity='', description='', order=''):
     from fpdf import FPDF
 
     pdf = FPDF()
-    
+
     # Adding a page
     pdf.add_page()
-    
+
     # set style and size of font 
     pdf.set_font("Arial", size = 50)
-    
+
     # create cells
     pdf.cell(200, 30, txt = "Ticket", ln = 1, align = 'C')
 
     pdf.set_font("Arial", size = 15)
-    pdf.cell(200, 10, txt = "Box Number: " + str(box_number), ln = 2, align = 'L')
-    pdf.cell(200, 10, txt = "Quantity: " + str(quantity), ln = 3, align = 'L')
-    pdf.cell(200, 10, txt = "Description: " + str(description), ln = 4, align = 'L')
-    pdf.cell(200, 10, txt = "Order: " + str(order), ln = 5, align = 'L')
-    
+    pdf.cell(200, 10, txt=f"Box Number: {str(box_number)}", ln = 2, align = 'L')
+    pdf.cell(200, 10, txt=f"Quantity: {str(quantity)}", ln = 3, align = 'L')
+    pdf.cell(200, 10, txt=f"Description: {str(description)}", ln = 4, align = 'L')
+    pdf.cell(200, 10, txt=f"Order: {str(order)}", ln = 5, align = 'L')
+
     # add another cell
     pdf.image(qrcode_img, w = 120)
-    
+
     # save the pdf
     pdf.output(pdf_file)
 
